@@ -4,7 +4,7 @@ CREATE TABLE `bookish`.`book` (
   `isbn` VARCHAR(13) NOT NULL,
   `title` VARCHAR(45) NULL,
   PRIMARY KEY (`isbn`));
-CREATE TABLE `bookish`.`cauthoropy` (
+CREATE TABLE `bookish`.`copy` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `book_isbn` VARCHAR(13) NULL,
   PRIMARY KEY (`id`),
