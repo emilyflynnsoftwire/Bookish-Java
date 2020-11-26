@@ -1,3 +1,4 @@
+DROP SCHEMA `bookish`;
 CREATE SCHEMA `bookish`;
 CREATE TABLE `bookish`.`book` (
   `isbn` VARCHAR(13) NOT NULL,
