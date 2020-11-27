@@ -39,6 +39,7 @@ public class BookController {
 
         AllBookPageModel pageModel= new AllBookPageModel();
         pageModel.setBooks(books);
+        pageModel.setSearchString(search);
 
         return new ModelAndView("books", "model", pageModel);
     }

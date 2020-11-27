@@ -10,4 +10,5 @@ import java.util.List;
 @Setter
 public class AllBookPageModel {
     private List<Book> books;
+    private String searchString;
 }

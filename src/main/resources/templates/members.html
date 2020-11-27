@@ -17,8 +17,14 @@
 </div>
 
 <div class="container">
-    <h2>These are our members!</h2>
-    <a class="btn btn-secondary" th:href="@{members/new-member}">Add a new member</a>
+    <a class="btn btn-secondary m-2" th:href="@{/members/new-member}">Add a member</a>
+    <a class="btn btn-secondary m-2" th:href="@{/members}">Show all members</a>
+
+    <form class="form-inline d-flex justify-content-center md-form form-sm mb-2" th:action="@{/members/}" method="get">
+        <i class="fas fa-search" aria-hidden="true"></i>
+        <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search" name="search">
+    </form>
+
     <div class="member-list">
         <div class="list-group">
             <a th:each="member : ${model.members}" th:href="${'/members/' + member.id}"

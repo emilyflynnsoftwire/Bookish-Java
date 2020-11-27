@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
@@ -29,12 +30,17 @@ public class MemberController {
     }
 
     @RequestMapping("")
-    ModelAndView members() {
+    ModelAndView members(@RequestParam(name="search", required = false) String search) {
 
-        List<Member> allMembers = memberService.getAllMembers();
+        List<Member> members;
 
+        if (search == null) {
+            members = memberService.getAllMembers();
+        } else {
+            members = memberService.searchMembers(search);
+        }
         AllMemberPageModel memberPageModel = new AllMemberPageModel();
-        memberPageModel.setMembers(allMembers);
+        memberPageModel.setMembers(members);
 
         return new ModelAndView("members", "model", memberPageModel);
     }

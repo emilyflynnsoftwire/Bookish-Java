@@ -16,6 +16,16 @@ public class MemberService extends DatabaseService {
         );
     }
 
+    public List<Member> searchMembers(String search) {
+        return jdbi.withHandle(handle ->
+                handle.createQuery("SELECT * FROM member" +
+                        " WHERE CONCAT(firstName, ' ', secondName) LIKE :search")
+                        .bind("search", "%" + search + "%")
+                        .mapToBean(Member.class)
+                        .list()
+        );
+    }
+
     public Member getMember(int id) {
         Member member = jdbi.withHandle(handle ->
                 handle.createQuery("SELECT * FROM member WHERE id = :id")
