@@ -9,7 +9,9 @@ import java.util.List;
 @Service
 public class BookService extends DatabaseService{
     public List<Book> getAllBooks() {
-        String query = "SELECT isbn, title, author, numberOfCopies FROM book\n";
+        String query = "SELECT book.isbn, title, author, numberOfCopies, COUNT(status) AS copiesOut FROM book\n" +
+                "LEFT JOIN loan ON book.isbn = loan.book_isbn AND status='ACTIVE'\n" +
+                "GROUP BY book.isbn";
         return jdbi.withHandle(handle ->
                 handle.createQuery(query)
                         .mapToBean(Book.class)
@@ -32,7 +34,7 @@ public class BookService extends DatabaseService{
     public void editBook(Book book) {
         jdbi.useHandle(handle ->
                 handle.createUpdate("UPDATE book " +
-                        "Set title=:title, author=:author, numberOfCopies=:numberOfCopies WHERE isbn=:isbn")
+                        "SET title=:title, author=:author, numberOfCopies=:numberOfCopies WHERE isbn=:isbn")
                         .bind("isbn", book.getIsbn())
                         .bind("title", book.getTitle())
                         .bind("author", book.getAuthor())

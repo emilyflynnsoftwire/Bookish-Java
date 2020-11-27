@@ -22,7 +22,15 @@
     <div class="member-list">
         <div class="list-group">
             <a th:each="book : ${model.books}" th:href="${'/books/' + book.isbn}"
-               class="list-group-item" th:text="${book.getTitle()}">
+               class="list-group-item">
+                <h4 th:text="${book.getTitle()}"></h4>
+                <div>
+                    by <th:block th:text="${book.author}"></th:block>
+                </div>
+                <div class="float-right">
+                    <th:block th:text="${book.numberOfCopies - book.copiesOut}"></th:block> /
+                    <th:block th:text="${book.numberOfCopies}"></th:block> in library
+                </div>
             </a>
         </div>
     </div>
