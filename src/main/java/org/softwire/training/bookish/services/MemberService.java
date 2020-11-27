@@ -25,9 +25,8 @@ public class MemberService extends DatabaseService {
         );
         List<Loan> loans = jdbi.withHandle(handle ->
                 handle.createQuery("SELECT return_date, issue_date, book.isbn AS isbn, book.title AS title" +
-                        " FROM loan INNER JOIN copy ON copy.id = loan.copy_id" +
-                        " INNER JOIN book ON copy.book_isbn = book.isbn" +
-                        " WHERE member_id = :id")
+                        " FROM loan INNER JOIN book ON book.isbn = loan.book_isbn" +
+                        " WHERE member_id = :id AND status = 'ACTIVE'")
                       .bind("id", id)
                       .mapToBean(Loan.class)
                       .list()
