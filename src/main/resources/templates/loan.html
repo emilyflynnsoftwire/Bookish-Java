@@ -20,50 +20,39 @@
 </div>
 
 <div class="container">
-    <h2 th:text="'Loan ' + ${model.loan.id}"></h2>
-    <div class="accordion" id="options">
-        <div class="card">
-            <div class="card-header" id="headingOne">
-                <h2 class="mb-0">
-                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Edit User Details
-                    </button>
-                </h2>
+    <h2 class="display-4" th:text="'Loan ' + ${model.loan.id}"></h2>
+    <hr>
+    <div class="card">
+        <div class="card-body">
+            <div class="form-group">
+                <label for="title">Book Title</label>
+                <input type="text" id="title" class="form-control" th:value="${model.loan.title}" readonly>
             </div>
-
-            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#options">
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="title">Book Title</label>
-                        <input type="text" id="title" class="form-control" th:value="${model.loan.title}" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="author">Book Author</label>
-                        <input type="text" id="author" class="form-control" th:value="${model.loan.author}" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="firstName">Borrower First Name</label>
-                        <input type="tel" id="firstName" class="form-control" th:value="${model.loan.firstName}" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="secondName">Borrower Second Name</label>
-                        <input type="email" id="secondName" class="form-control" th:value="${model.loan.secondName}" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="issueDate">Issue Date</label>
-                        <input type="email" id="issueDate" class="form-control" th:value="${model.loan.issueDate}" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="returnDate">Date Due for Return</label>
-                        <input type="email" id="returnDate" class="form-control" th:value="${model.loan.returnDate}" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="status">Loan Status</label>
-                        <input type="email" id="status" class="form-control" th:value="${model.loan.status}" readonly>
-                    </div>
-                    <a role="button" class="btn btn-primary" th:href="'/loans/renew-loan/' + ${model.loan.id}">Renew loan</a>
-                </div>
+            <div class="form-group">
+                <label for="author">Book Author</label>
+                <input type="text" id="author" class="form-control" th:value="${model.loan.author}" readonly>
             </div>
+            <div class="form-group">
+                <label for="firstName">Borrower First Name</label>
+                <input type="tel" id="firstName" class="form-control" th:value="${model.loan.firstName}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="secondName">Borrower Second Name</label>
+                <input type="email" id="secondName" class="form-control" th:value="${model.loan.secondName}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="issueDate">Issue Date</label>
+                <input type="email" id="issueDate" class="form-control" th:value="${model.loan.issueDate}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="returnDate">Date Due for Return</label>
+                <input type="email" id="returnDate" class="form-control" th:value="${model.loan.returnDate}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="status">Loan Status</label>
+                <input type="email" id="status" class="form-control" th:value="${model.loan.status}" readonly>
+            </div>
+            <a role="button" class="btn btn-primary" th:href="'/loans/renew-loan/' + ${model.loan.id}">Renew loan</a>
         </div>
     </div>
 
