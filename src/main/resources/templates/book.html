@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!--@thymesVar id="model" type="org.softwire.training.bookish.models.page.BookPageModel"-->
+<head>
+    <title>Bookish - Books</title>
+
+    <link rel="stylesheet" href="/styles/general.css"/>
+    <link rel="stylesheet" href="/styles/navbar.css"/>
+    <link rel="stylesheet" href="/styles/bootstrap.min.css"/>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<div th:replace="fragments/navbar :: navbar">
+    <!-- This element is replaced by the HTML in fragments/navbar.html -->
+</div>
+
+<div class="container">
+    <h2 th:text="${model.book.title}"></h2>
+    <div class="accordion" id="options">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Edit Book Details
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#options">
+                <div class="card-body">
+                    <form th:action="@{/books/edit-book}" method="post" id="editBook">
+                        <input type="hidden" name="isbn" th:value="${model.book.isbn}">
+                        <div class="form-group">
+                            <label for="editBook">ISBN</label>
+                            <input type="text" name="isbn" class="form-control" th:value="${model.book.isbn}" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="editBook">Title</label>
+                            <input type="text" name="title" class="form-control" th:value="${model.book.title}">
+                        </div>
+                        <div class="form-group">
+                            <label for="editBook">Author</label>
+                            <input type="text" name="author" class="form-control" th:value="${model.book.author}">
+                        </div>
+                        <div class="form-group">
+                            <label for="editBook">Number Of Copies</label>
+                            <input type="number" name="numberOfCopies" class="form-control" th:value="${model.book.numberOfCopies}">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Edit Details</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        Current Loans
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#options">
+                <div>
+                    Number of copies currently on loan is <span th:text="${model.book.loans.size()}"></span>
+                </div>
+                <div>
+                    Number of copies remaining in library is <span th:text="${model.book.numberOfCopies - model.book.loans.size()}"></span>
+                </div>
+                <div th:if="${model.book.loans.size() > 0}">
+                    Copies are checked out by the following members:
+                    <ul>
+                        <li th:each="loan : ${model.book.loans}">
+                            <span th:text="${loan.borrowerFirstName + ' ' + loan.borrowerSecondName}"></span>
+                            (due back on <span th:text="${loan.getFormattedDate()}"></span>)
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+</div>
+
+</body>
+</html>

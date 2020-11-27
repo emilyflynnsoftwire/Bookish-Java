@@ -3,6 +3,7 @@ package org.softwire.training.bookish.models.database;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Getter
@@ -18,4 +19,9 @@ public class Loan {
     private String firstName;
     private String secondName;
     private String status;
+    private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+    public String getFormattedDate() {
+        return format.format(returnDate);
+    }
 }
