@@ -41,6 +41,7 @@ public class MemberController {
         }
         AllMemberPageModel memberPageModel = new AllMemberPageModel();
         memberPageModel.setMembers(members);
+        memberPageModel.setSearchString(search);
 
         return new ModelAndView("members", "model", memberPageModel);
     }
