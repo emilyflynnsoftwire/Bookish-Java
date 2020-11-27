@@ -8,9 +8,14 @@ import java.util.Date;
 @Getter
 @Setter
 public class Loan {
-    String title;
-    String isbn;
-    int copyId;
-    Date returnDate;
-    Date issueDate;
+    private int id;
+    private Date issueDate;
+    private Date returnDate;
+    private String isbn;
+    private String title;
+    private String author;
+    private int memberId;
+    private String firstName;
+    private String secondName;
+    private String status;
 }

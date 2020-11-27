@@ -1,7 +1,6 @@
 package org.softwire.training.bookish.services;
 
 import org.softwire.training.bookish.models.database.Book;
-import org.softwire.training.bookish.models.database.Technology;
 
 import java.util.List;
 
