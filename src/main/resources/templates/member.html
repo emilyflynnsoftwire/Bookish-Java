@@ -66,7 +66,12 @@
                 </h2>
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#options">
-                This feature hasn't been implemented yet
+                <span th:text="${model.member.getFullName()}"></span>
+                has
+                <span th:text="${model.member.loans.size()}"></span> current loans.
+                <div th:each="loan: ${model.member.loans}">
+                    <span th:text="${loan.title}"></span>
+                </div>
             </div>
         </div>
     </div>

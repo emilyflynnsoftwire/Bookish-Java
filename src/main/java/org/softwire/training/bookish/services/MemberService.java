@@ -1,5 +1,6 @@
 package org.softwire.training.bookish.services;
 
+import org.softwire.training.bookish.models.database.Loan;
 import org.softwire.training.bookish.models.database.Member;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +17,23 @@ public class MemberService extends DatabaseService {
     }
 
     public Member getMember(int id) {
-        return jdbi.withHandle(handle ->
+        Member member = jdbi.withHandle(handle ->
                 handle.createQuery("SELECT * FROM member WHERE id = :id")
                         .bind("id", id)
                         .mapToBean(Member.class)
                         .list().get(0)
         );
+        List<Loan> loans = jdbi.withHandle(handle ->
+                handle.createQuery("SELECT return_date, issue_date, book.isbn AS isbn, book.title AS title" +
+                        " FROM loan INNER JOIN copy ON copy.id = loan.copy_id" +
+                        " INNER JOIN book ON copy.book_isbn = book.isbn" +
+                        " WHERE member_id = :id")
+                      .bind("id", id)
+                      .mapToBean(Loan.class)
+                      .list()
+        );
+        member.setLoans(loans);
+        return member;
     }
 
     public void addMember(Member member) {

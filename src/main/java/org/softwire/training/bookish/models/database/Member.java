@@ -3,6 +3,8 @@ package org.softwire.training.bookish.models.database;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class Member {
@@ -11,6 +13,7 @@ public class Member {
     private String secondName;
     private String emailAddress;
     private String telephoneNumber;
+    private List<Loan> loans;
 
     public String getFullName() {
         return firstName + " " + secondName;
