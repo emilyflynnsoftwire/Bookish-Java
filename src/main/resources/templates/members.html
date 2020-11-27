@@ -18,12 +18,16 @@
 
 <div class="container">
     <a class="btn btn-secondary m-2" th:href="@{/members/new-member}">Add a member</a>
-    <a class="btn btn-secondary m-2" th:href="@{/members}">Show all members</a>
+    <a class="btn btn-secondary m-2" th:href="@{/members}" th:if="${model.searchString != null}">Show all members</a>
 
     <form class="form-inline d-flex justify-content-center md-form form-sm mb-2" th:action="@{/members/}" method="get">
         <i class="fas fa-search" aria-hidden="true"></i>
         <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search" name="search">
     </form>
+
+    <th:p th:if="${model.searchString != null}">
+        Searching for members containing <th:block th:text="${model.searchString}"></th:block>
+    </th:p>
 
     <div class="member-list">
         <div class="list-group">
@@ -32,6 +36,9 @@
             </a>
         </div>
     </div>
+    <p th:if="${model.members.size() == 0}">
+        No members found.
+    </p>
 </div>
 
 </body>
