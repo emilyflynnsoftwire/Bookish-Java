@@ -64,7 +64,22 @@
                 </h2>
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#options">
-                This feature has not yet been implemented.
+                <div>
+                    Number of copies currently on loan is <span th:text="${model.book.loans.size()}"></span>
+                </div>
+                <div>
+                    Number of copies remaining in library is <span th:text="${model.book.numberOfCopies - model.book.loans.size()}"></span>
+                </div>
+                <div th:if="${model.book.loans.size() > 0}">
+                    Copies are checked out by the following members:
+                    <ul>
+                        <li th:each="loan : ${model.book.loans}">
+                            <span th:text="${loan.borrowerFirstName + ' ' + loan.borrowerSecondName}"></span>
+                            (due back on <span th:text="${loan.getFormattedDate()}"></span>)
+                        </li>
+                    </ul>
+                </div>
+
             </div>
         </div>
     </div>
