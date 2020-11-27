@@ -17,12 +17,19 @@
 </div>
 
 <div class="container">
-    <h2>These are our loans!</h2>
-    <a class="btn btn-secondary" th:href="@{loans/new-loan}">Set up a new loan</a>
+    <h2 class="display-4">Active loans</h2>
+    <hr>
+    <a class="btn btn-success mb-3" th:href="@{loans/new-loan}">Set up a new loan</a>
     <div class="loan-list">
         <div class="list-group">
-            <a th:each="loan : ${model.loans}" th:href="'/loans/' + ${loan.id}"
-               class="list-group-item" th:text="${loan.id}">
+            <a class="list-group-item black-text" th:each="loan : ${model.loans}" th:href="'/loans/' + ${loan.id}">
+                <div class="row">
+                    <div class="col-sm-1 align-middle" th:text="${loan.id}"></div>
+                    <div class="col-sm-11">
+                        <div class="h4" th:text="${loan.title}"></div>
+                        <div th:text="${loan.firstName} + ' ' + ${loan.secondName}"></div>
+                    </div>
+                </div>
             </a>
         </div>
     </div>

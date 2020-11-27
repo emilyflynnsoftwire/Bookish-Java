@@ -21,3 +21,16 @@ body {
     max-width: 800px;
     flex-grow: 1;
 }
+
+.align-middle {
+    display: flex;
+    align-items: center;
+}
+
+.black-text {
+    color: black;
+}
+
+.list-group-item:hover {
+    background-color: #eee;
+}
