@@ -10,7 +10,7 @@ import java.util.Date;
 public class Loan {
     String title;
     String isbn;
-    int copyId;
     Date returnDate;
     Date issueDate;
+    String status;
 }

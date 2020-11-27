@@ -1,19 +1,16 @@
 package org.softwire.training.bookish.services;
 
 import org.softwire.training.bookish.models.database.Book;
-import org.softwire.training.bookish.models.database.Technology;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class BookService extends DatabaseService{
     public List<Book> getAllBooks() {
-        String joinQuery = "SELECT book.isbn, book.title,\n" +
-                "GROUP_CONCAT(author.name) AS \"authors\" FROM book\n" +
-                "LEFT JOIN authorbook ON authorbook.book_isbn = book.isbn\n" +
-                "LEFT JOIN author ON author.id = authorbook.author_id\n" +
-                "GROUP BY book.isbn";
+        String query = "SELECT isbn, title, author, numberOfCopies FROM book\n";
         return jdbi.withHandle(handle ->
-                handle.createQuery(joinQuery)
+                handle.createQuery(query)
                         .mapToBean(Book.class)
                         .list()
         );
@@ -21,19 +18,35 @@ public class BookService extends DatabaseService{
 
     public void addBook(Book book) {
         jdbi.useHandle(handle ->
-                handle.createUpdate("INSERT INTO book (isbn, title) VALUES (:isbn, :title)")
+                handle.createUpdate("INSERT INTO book (isbn, title, author, numberOfCopies) " +
+                        "VALUES (:isbn, :title, :author, :numberOfCopies)")
                         .bind("isbn", book.getIsbn())
                         .bind("title", book.getTitle())
+                        .bind("author", book.getAuthor())
+                        .bind("numberOfCopies", book.getNumberOfCopies())
                         .execute()
         );
     }
 
     public void editBook(Book book) {
         jdbi.useHandle(handle ->
-                handle.createUpdate("UPDATE book Set title=:title WHERE isbn=:isbn")
+                handle.createUpdate("UPDATE book " +
+                        "Set title=:title, author=:author, numberOfCopies=:numberOfCopies WHERE isbn=:isbn")
                         .bind("isbn", book.getIsbn())
                         .bind("title", book.getTitle())
+                        .bind("author", book.getAuthor())
+                        .bind("numberOfCopies", book.getNumberOfCopies())
                         .execute()
         );
+    }
+
+    public Book getBook(String isbn) {
+            String query = "SELECT book.isbn, book.title, book.author, book.numberOfCopies FROM book WHERE isbn = :isbn";
+            return jdbi.withHandle(handle ->
+                    handle.createQuery(query)
+                          .bind("isbn", isbn)
+                          .mapToBean(Book.class)
+                          .list().get(0)
+            );
     }
 }
