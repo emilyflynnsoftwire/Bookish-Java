@@ -11,13 +11,27 @@ public class BookService extends DatabaseService{
     public List<Book> getAllBooks() {
         String query = "SELECT book.isbn, title, author, numberOfCopies, COUNT(status) AS copiesOut FROM book\n" +
                 "LEFT JOIN loan ON book.isbn = loan.book_isbn AND status='ACTIVE'\n" +
-                "GROUP BY book.isbn";
+                "GROUP BY book.isbn ORDER BY book.title";
         return jdbi.withHandle(handle ->
                 handle.createQuery(query)
                         .mapToBean(Book.class)
                         .list()
         );
     }
+
+    public List<Book> searchBooks(String search) {
+        String query = "SELECT book.isbn, title, author, numberOfCopies, COUNT(status) AS copiesOut FROM book\n" +
+                "LEFT JOIN loan ON book.isbn = loan.book_isbn AND status='ACTIVE'\n" +
+                "WHERE book.title LIKE :search OR book.author LIKE :search\n" +
+                "GROUP BY book.isbn ORDER BY book.title";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("search", "%" + search + "%")
+                        .mapToBean(Book.class)
+                        .list()
+        );
+    }
+
 
     public void addBook(Book book) {
         jdbi.useHandle(handle ->
@@ -59,7 +73,6 @@ public class BookService extends DatabaseService{
                           .mapToBean(Loan.class)
                           .list()
             );
-            System.out.println(loans.get(0).getBorrowerFirstName());
             book.setLoans(loans);
             return book;
     }

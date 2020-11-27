@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -27,12 +28,17 @@ public class BookController {
     }
 
     @RequestMapping("")
-    ModelAndView books() {
+    ModelAndView books(@RequestParam(name="search", required = false) String search) {
+        List<Book> books;
 
-        List<Book> allBooks = bookService.getAllBooks();
+        if (search == null) {
+            books = bookService.getAllBooks();
+        } else {
+            books = bookService.searchBooks(search);
+        }
 
         AllBookPageModel pageModel= new AllBookPageModel();
-        pageModel.setBooks(allBooks);
+        pageModel.setBooks(books);
 
         return new ModelAndView("books", "model", pageModel);
     }
