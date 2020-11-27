@@ -74,7 +74,7 @@
                     Copies are checked out by the following members:
                     <ul>
                         <li th:each="loan : ${model.book.loans}">
-                            <span th:text="${loan.borrowerFirstName + ' ' + loan.borrowerSecondName}"></span>
+                            <span th:text="${loan.firstName + ' ' + loan.secondName}"></span>
                             (due back on <span th:text="${loan.getFormattedDate()}"></span>)
                         </li>
                     </ul>

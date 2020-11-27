@@ -65,7 +65,7 @@ public class BookService extends DatabaseService {
                           .mapToBean(Book.class)
                           .list().get(0)
             );
-            String activeLoansQuery = "SELECT return_date, member.firstName AS borrowerFirstName, member.secondName AS borrowerSecondName" +
+            String activeLoansQuery = "SELECT return_date, member.firstName AS firstName, member.secondName AS secondName" +
                     " FROM loan INNER JOIN member ON member.id = loan.member_id WHERE book_isbn = :isbn AND status = 'Active'";
             List<Loan> loans = jdbi.withHandle(handle ->
                     handle.createQuery(activeLoansQuery)
