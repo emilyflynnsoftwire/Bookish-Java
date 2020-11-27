@@ -52,7 +52,8 @@
                 <label for="status">Loan Status</label>
                 <input type="email" id="status" class="form-control" th:value="${model.loan.status}" readonly>
             </div>
-            <a role="button" class="btn btn-primary" th:href="'/loans/renew-loan/' + ${model.loan.id}">Renew loan</a>
+            <a role="button" class="btn btn-success mt-2" th:href="'/loans/renew-loan/' + ${model.loan.id}"
+                th:if="${model.loan.status == 'Active' || model.loan.status == 'Overdue'}">Renew loan</a>
         </div>
     </div>
 
