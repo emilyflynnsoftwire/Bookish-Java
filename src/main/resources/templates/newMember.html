@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Bookish - Members</title>
+
+    <link rel="stylesheet" href="/styles/general.css"/>
+    <link rel="stylesheet" href="/styles/navbar.css"/>
+    <link rel="stylesheet" href="/styles/bootstrap.min.css"/>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<div th:replace="fragments/navbar :: navbar">
+    <!-- This element is replaced by the HTML in fragments/navbar.html -->
+</div>
+
+<div class="container">
+    <h2> New Member!</h2>
+        <form th:action="@{/members/add-member}" method="post" id="editMember">
+            <div class="form-group">
+                <label for="editMember">First Name</label>
+                <input type="text" name="firstName" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="editMember">Second Name</label>
+                <input type="text" name="secondName" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="editMember">Telephone Number</label>
+                <input type="tel" name="telephoneNumber" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="editMember">Email Address</label>
+                <input type="email" name="emailAddress" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Add Member</button>
+        </form>
+</div>
+</body>
+</html>

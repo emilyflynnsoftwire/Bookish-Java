@@ -8,9 +8,9 @@ import lombok.Setter;
 public class Book {
     private String isbn;
     private String title;
-    private String authors;
+    private String authorString;
 
     public void display() {
-        System.out.println(title + " by " + authors);
+        System.out.println(title + " by " + authorString);
     }
 }

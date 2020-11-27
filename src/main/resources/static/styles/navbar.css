@@ -1,4 +1,4 @@
-nav {
+.our-navbar {
     width: 100%;
     flex-shrink: 0;
 
@@ -20,6 +20,11 @@ nav {
     color: white;
 }
 
+.navbar-title a:hover {
+    color: white;
+    text-decoration: none;
+}
+
 .navbar-title a {
     color: unset;
     text-decoration: none;
@@ -38,6 +43,11 @@ nav {
 
 .navbar-item a {
     color: unset;
+    text-decoration: none;
+}
+
+.navbar-item a:hover {
+    color: lightgray;
     text-decoration: none;
 }
 
