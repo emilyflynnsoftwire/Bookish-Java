@@ -9,13 +9,16 @@ import java.util.Date;
 @Getter
 @Setter
 public class Loan {
-    private String title;
-    private String isbn;
-    private Date returnDate;
+    private int id;
     private Date issueDate;
+    private Date returnDate;
+    private String isbn;
+    private String title;
+    private String author;
+    private int memberId;
+    private String firstName;
+    private String secondName;
     private String status;
-    private String borrowerFirstName;
-    private String borrowerSecondName;
     private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
     public String getFormattedDate() {

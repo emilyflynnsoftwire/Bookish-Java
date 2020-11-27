@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!--@thymesVar id="model" type="org.softwire.training.bookish.models.page.AllLiveLoanPageModel"-->
+<head>
+    <title>Bookish - Loans</title>
+
+    <link rel="stylesheet" href="/styles/general.css"/>
+    <link rel="stylesheet" href="/styles/navbar.css"/>
+    <link rel="stylesheet" href="/styles/bootstrap.min.css"/>
+</head>
+
+<body>
+
+<div th:replace="fragments/navbar :: navbar">
+    <!-- This element is replaced by the HTML in fragments/navbar.html -->
+</div>
+
+<div class="container">
+    <h2>These are our loans!</h2>
+    <a class="btn btn-secondary" th:href="@{loans/new-loan}">Set up a new loan</a>
+    <div class="loan-list">
+        <div class="list-group">
+            <a th:each="loan : ${model.loans}" th:href="'/loans/' + ${loan.id}"
+               class="list-group-item" th:text="${loan.id}">
+            </a>
+        </div>
+    </div>
+</div>
+
+</body>
+
+
+</html>

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class BookService extends DatabaseService{
+public class BookService extends DatabaseService {
     public List<Book> getAllBooks() {
         String query = "SELECT book.isbn, title, author, numberOfCopies, COUNT(status) AS copiesOut FROM book\n" +
                 "LEFT JOIN loan ON book.isbn = loan.book_isbn AND status='ACTIVE'\n" +
